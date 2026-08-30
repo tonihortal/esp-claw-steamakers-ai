@@ -1,0 +1,11 @@
+menu "Wi-Fi Manager"
+
+    config WIFI_MANAGER_FORCE_CLOSE_AP_ON_STA
+        bool "Force provisioning AP closed while STA is connected"
+        default n
+        help
+            Close the provisioning access point after the station obtains an IP,
+            regardless of the persisted ap_behavior setting. The AP is reopened if
+            the station disconnects. Useful on boards with limited internal RAM.
+
+endmenu

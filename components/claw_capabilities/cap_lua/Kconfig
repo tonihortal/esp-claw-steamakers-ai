@@ -1,0 +1,40 @@
+menu "Lua capability"
+
+    config CAP_LUA_TASK_STACK_SIZE
+        int "Lua job task stack size"
+        range 4096 32768
+        default 12288
+        help
+            Stack size in bytes for each asynchronous Lua job. Boards without
+            usable external RAM may select a smaller value when their scripts
+            and registered modules are deliberately constrained.
+
+    config CAP_LUA_OUTPUT_SIZE
+        int "Lua job output buffer size"
+        range 1024 16384
+        default 4096
+
+    config CAP_LUA_ASYNC_LOG_DEFAULT_BYTES
+        int "Default Lua job log buffer size"
+        range 1024 16384
+        default 4096
+
+    config CAP_LUA_MAX_JOBS
+        int "Maximum retained Lua jobs"
+        range 1 16
+        default 16
+
+    config CAP_LUA_MAX_CONCURRENT
+        int "Maximum concurrent Lua jobs"
+        range 1 4
+        default 4
+
+    config CAP_LUA_EAGER_MODULE_LOAD
+        bool "Eagerly load every registered Lua module"
+        default y
+        help
+            Load all registered modules into each fresh Lua state. Disable on
+            constrained boards to register package.preload entries instead;
+            scripts then instantiate only modules requested with require().
+
+endmenu

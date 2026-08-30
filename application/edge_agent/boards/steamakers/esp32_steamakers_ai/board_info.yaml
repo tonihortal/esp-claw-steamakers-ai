@@ -1,0 +1,5 @@
+board: esp32_steamakers_ai
+chip: esp32s3
+version: 1.0.0
+description: "ESP32 STEAMakers AI - ESP32-S3 N16R8 with ST7789, INMP441, MAX98357A and internal flash storage"
+manufacturer: "STEAMakers / Keyestudio"

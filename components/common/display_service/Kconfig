@@ -1,0 +1,11 @@
+menu "Display Service Config"
+
+    config DISPLAY_SERVICE_TASK_STACK_SIZE
+        int "LVGL task stack size"
+        range 4096 16384
+        default 8192
+        help
+            Stack size in bytes for the shared LVGL worker task. Boards using
+            a status-only screen can lower this to conserve internal RAM.
+
+endmenu
