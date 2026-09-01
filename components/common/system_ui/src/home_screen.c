@@ -6,6 +6,7 @@
 #include "system_ui_private.h"
 
 #include <stdio.h>
+#include <string.h>
 #include <time.h>
 
 #include "display_service.h"
@@ -34,7 +35,7 @@ static system_ui_home_layout_t system_ui_home_layout(void)
     int32_t height = (int32_t)s_ui.height;
     int32_t short_side = system_ui_short_side_from(s_ui.width, s_ui.height);
     int32_t header_y = system_ui_clamp_i32(short_side / 22, 10, 20);
-    int32_t status_h = system_ui_clamp_i32(short_side / 9, 28, 42);
+    int32_t status_h = system_ui_clamp_i32(short_side / 6, 40, 56);
     int32_t title_y = system_ui_clamp_i32(height * SYSTEM_UI_HOME_TITLE_Y_PCT / 100,
                                           header_y + status_h + 8, height - 150);
     int32_t subtitle_y = system_ui_clamp_i32(height * SYSTEM_UI_HOME_SUBTITLE_Y_PCT / 100,
@@ -99,12 +100,14 @@ static void system_ui_home_clock_timer_cb(lv_timer_t *timer)
 void system_ui_home_update_locked(void)
 {
     char status[96];
-    if (s_ui.sta_connected && s_ui.ap_ssid[0]) {
-        snprintf(status, sizeof(status), "WIFI ON  |  AP %s", s_ui.ap_ssid);
+    bool has_sta_ip = s_ui.sta_ip[0] && strcmp(s_ui.sta_ip, "0.0.0.0") != 0;
+
+    if (s_ui.sta_connected && has_sta_ip) {
+        snprintf(status, sizeof(status), "WIFI ON\n%s", s_ui.sta_ip);
     } else if (s_ui.sta_connected) {
         snprintf(status, sizeof(status), "WIFI ON");
     } else if (s_ui.ap_ssid[0]) {
-        snprintf(status, sizeof(status), "WIFI OFF  |  AP %s", s_ui.ap_ssid);
+        snprintf(status, sizeof(status), "WIFI OFF\nAP %s", s_ui.ap_ssid);
     } else {
         snprintf(status, sizeof(status), "WIFI OFF");
     }
@@ -133,7 +136,7 @@ static esp_err_t system_ui_home_create_status_bar_locked(const system_ui_home_la
     s_ui.status_label = lv_label_create(bar);
     ESP_RETURN_ON_FALSE(s_ui.status_label != NULL, ESP_ERR_NO_MEM, SYSTEM_UI_TAG, "create status failed");
     lv_obj_set_size(s_ui.status_label, status_w, layout->status_h);
-    lv_label_set_long_mode(s_ui.status_label, LV_LABEL_LONG_SCROLL_CIRCULAR);
+    lv_label_set_long_mode(s_ui.status_label, LV_LABEL_LONG_CLIP);
     lv_obj_set_style_text_color(s_ui.status_label, system_ui_color(SYSTEM_UI_COLOR_MUTED), 0);
     lv_obj_set_style_text_align(s_ui.status_label, LV_TEXT_ALIGN_CENTER, 0);
     system_ui_apply_font(s_ui.status_label);
@@ -300,7 +303,7 @@ void system_ui_delete_home_locked(void)
     s_ui.date_label = NULL;
 }
 
-esp_err_t system_ui_set_network_status(bool sta_connected, const char *ap_ssid)
+esp_err_t system_ui_set_network_status(bool sta_connected, const char *sta_ip, const char *ap_ssid)
 {
     system_ui_work_event_t event = {
         .type = SYSTEM_UI_WORK_EVENT_NETWORK_STATUS,
@@ -310,6 +313,7 @@ esp_err_t system_ui_set_network_status(bool sta_connected, const char *ap_ssid)
     ESP_RETURN_ON_FALSE(s_ui.started, ESP_ERR_INVALID_STATE, SYSTEM_UI_TAG, "runtime not started");
     event.generation = s_ui.generation;
     event.network_status.sta_connected = sta_connected;
+    strlcpy(event.network_status.sta_ip, sta_ip ? sta_ip : "", sizeof(event.network_status.sta_ip));
     strlcpy(event.network_status.ap_ssid, ap_ssid ? ap_ssid : "", sizeof(event.network_status.ap_ssid));
     return system_ui_post_work_event(&event, pdMS_TO_TICKS(100));
 }

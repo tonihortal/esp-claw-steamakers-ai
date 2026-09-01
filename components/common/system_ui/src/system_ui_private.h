@@ -43,6 +43,7 @@ extern "C" {
 #define SYSTEM_UI_EVENT_QUEUE_LEN 12
 #define SYSTEM_UI_HOME_TITLE_LEN 48
 #define SYSTEM_UI_HOME_SUBTITLE_LEN 64
+#define SYSTEM_UI_IPV4_ADDR_LEN 16
 
 #define SYSTEM_UI_JOB_TITLE_LEN SYSTEM_UI_TASK_TITLE_LEN
 #define SYSTEM_UI_JOB_STATUS_LEN SYSTEM_UI_TASK_STATUS_LEN
@@ -162,6 +163,7 @@ typedef struct {
         } jobs_action;
         struct {
             bool sta_connected;
+            char sta_ip[SYSTEM_UI_IPV4_ADDR_LEN];
             char ap_ssid[64];
         } network_status;
     };
@@ -242,6 +244,7 @@ typedef struct {
     system_ui_touch_gesture_t touch_gesture;
     bool jobs_visible;
     bool sta_connected;
+    char sta_ip[SYSTEM_UI_IPV4_ADDR_LEN];
     char ap_ssid[64];
     char home_title[SYSTEM_UI_HOME_TITLE_LEN];
     char home_subtitle[SYSTEM_UI_HOME_SUBTITLE_LEN];
@@ -301,7 +304,7 @@ void system_ui_unlock(void);
 esp_err_t system_ui_callback_lock(void);
 void system_ui_callback_unlock(void);
 
-esp_err_t system_ui_set_network_status(bool sta_connected, const char *ap_ssid);
+esp_err_t system_ui_set_network_status(bool sta_connected, const char *sta_ip, const char *ap_ssid);
 esp_err_t system_ui_overlay_set_visible(bool visible);
 esp_err_t system_ui_launcher_set_select_callback(system_ui_launcher_select_cb_t cb, void *user_ctx);
 esp_err_t system_ui_jobs_set_provider(system_ui_jobs_provider_cb_t cb, void *user_ctx);

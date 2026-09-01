@@ -83,13 +83,14 @@ static void on_wifi_state_changed(bool connected, void *user_ctx)
     wifi_manager_get_status(&status);
     const char *ap_ssid = status.ap_active ? status.ap_ssid : NULL;
 
-    ESP_LOGI(TAG, "Wi-Fi state: sta_connected=%d ap_active=%d mode=%s ap_ssid=%s",
+    ESP_LOGI(TAG, "Wi-Fi state: sta_connected=%d sta_ip=%s ap_active=%d mode=%s ap_ssid=%s",
              connected,
+             status.sta_ip ? status.sta_ip : "0.0.0.0",
              status.ap_active,
              status.mode ? status.mode : "off",
              ap_ssid ? ap_ssid : "(none)");
 
-    esp_err_t err = app_claw_set_network_status(connected, ap_ssid);
+    esp_err_t err = app_claw_set_network_status(connected, status.sta_ip, ap_ssid);
     if (err != ESP_OK) {
         ESP_LOGW(TAG, "Failed to update network UI: %s", esp_err_to_name(err));
     }

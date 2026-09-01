@@ -62,6 +62,11 @@ La TFT ocupa GPIO20, que també és el senyal USB D+ de l'ESP32-S3. Amb la TFT
 connectada s'ha d'utilitzar el connector USB **PROG** (CH340/UART0), no el
 connector USB OTG, per gravar i monitorar el firmware.
 
+Quan la connexió Wi-Fi està preparada, la pantalla mostra l'adreça IPv4
+assignada per la xarxa just sota `WIFI ON`. Aquesta és l'adreça que s'ha
+d'introduir al navegador per obrir la consola web si el nom
+`http://esp-claw.local/` no es resol al mòbil o a l'ordinador.
+
 El perfil ESP-Claw no utilitza la ranura microSD perquè el seu bus comparteix
 GPIO35-37 amb la PSRAM octal del mòdul N16R8. La targeta ha d'estar retirada i
 no s'ha d'inserir mentre s'executa aquest firmware. La ranura buida pot continuar
@@ -99,7 +104,7 @@ YAML d'aquesta carpeta. No modifiquis directament els fitxers generats.
 ## Instal·lació del firmware precompilat
 
 La [darrera versió publicada](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/latest)
-inclou un fitxer únic `esp-claw-steamakers-ai-v0.1.0.bin`. Retira la microSD,
+inclou un fitxer únic `esp-claw-steamakers-ai-v0.1.1.bin`. Retira la microSD,
 connecta el cable de dades al port **PROG/CH340** i instal·la `esptool`:
 
 ```bash
@@ -112,7 +117,7 @@ Després substitueix `PORT` pel port real (`COM5` a Windows,
 ```bash
 python -m esptool --chip esp32s3 --port PORT --baud 460800 \
   write-flash --flash-mode dio --flash-freq 80m --flash-size 16MB \
-  0x0 esp-claw-steamakers-ai-v0.1.0.bin
+  0x0 esp-claw-steamakers-ai-v0.1.1.bin
 ```
 
 La imatge és una instal·lació neta: substitueix l'aplicació, el sistema i la

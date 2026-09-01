@@ -33,6 +33,7 @@ typedef struct {
 
 typedef struct {
     bool sta_connected;
+    const char *sta_ip;
     const char *ap_ssid;
 } system_ui_network_state_t;
 

@@ -531,16 +531,18 @@ esp_err_t app_claw_ui_start(void)
 #endif
 }
 
-esp_err_t app_claw_set_network_status(bool sta_connected, const char *ap_ssid)
+esp_err_t app_claw_set_network_status(bool sta_connected, const char *sta_ip, const char *ap_ssid)
 {
 #if CONFIG_APP_CLAW_SYSTEM_UI_ENABLE
     const system_ui_network_state_t state = {
         .sta_connected = sta_connected,
+        .sta_ip = sta_ip,
         .ap_ssid = ap_ssid,
     };
     return system_ui_update_network(&state);
 #else
     (void)sta_connected;
+    (void)sta_ip;
     (void)ap_ssid;
     return ESP_OK;
 #endif
