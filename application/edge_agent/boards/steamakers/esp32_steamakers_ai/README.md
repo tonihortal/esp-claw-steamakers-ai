@@ -103,9 +103,15 @@ YAML d'aquesta carpeta. No modifiquis directament els fitxers generats.
 
 ## Instal·lació del firmware precompilat
 
-La [darrera versió publicada](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/latest)
-inclou un fitxer únic `esp-claw-steamakers-ai-v0.1.1.bin`. Retira la microSD,
-connecta el cable de dades al port **PROG/CH340** i instal·la `esptool`:
+La [versió v0.1.1](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/tag/v0.1.1)
+inclou el fitxer únic
+[`esp-claw-steamakers-ai-v0.1.1.bin`](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/download/v0.1.1/esp-claw-steamakers-ai-v0.1.1.bin).
+La seva suma SHA-256 verificada és
+`3ff91d161656ea39231989d9344184f186988714bec7c9544196c333c98a9147` i també
+està publicada a
+[`SHA256SUMS.txt`](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/download/v0.1.1/SHA256SUMS.txt).
+Retira la microSD, connecta el cable de dades al port **PROG/CH340** i instal·la
+`esptool`:
 
 ```bash
 python -m pip install --upgrade esptool
