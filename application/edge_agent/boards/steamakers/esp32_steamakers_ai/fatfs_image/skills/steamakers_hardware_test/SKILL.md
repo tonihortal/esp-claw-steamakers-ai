@@ -20,12 +20,19 @@ Before running the test:
 
 1. Activate and read `board_hardware_info` and verify that the current board is
    `esp32_steamakers_ai`.
-2. Confirm that the microSD card is removed. Never insert one while this PSRAM
-   firmware is running because GPIO35-GPIO37 are assigned to octal PSRAM.
-3. Confirm that the speaker is connected and warn that the speaker test plays
-   three tones.
+2. Confirm that the microSD card is removed only if the conversation does not
+   already establish it. Never insert one while this PSRAM firmware is running
+   because GPIO35-GPIO37 are assigned to octal PSRAM.
+3. State that the speaker test will play three tones.
 4. Tell the user to look for four colored quadrants on the TFT and to speak
    continuously while the microphone test is running.
+
+An explicit request to execute the complete or full hardware test is consent to
+run the TFT, speaker and microphone diagnostics, including the three tones. Give
+the notices above and proceed immediately. Do not ask for a second confirmation
+before the speaker test and never pause between the four scripts. If microSD
+status is the only unknown, ask about it once before running any script; after
+the user confirms removal, execute all four scripts in the same request.
 
 Run these four scripts sequentially, using a separate `lua_run_script` call for
 each one so failures remain isolated and easy to diagnose.
@@ -66,8 +73,9 @@ The script checks:
   low-memory 20 ms capture windows.
 
 Each script ends with its own `ALL PASS` marker. Ask the user to confirm
-separately that the four colors fill the complete screen without an 80-pixel
-displacement, that colors are correct, and that the three tones are clean.
+after all four scripts have run that the four colors fill the complete screen
+without an 80-pixel displacement, that colors are correct, and that the three
+tones are clean. Do not request those confirmations between scripts.
 Report every `PASS` or failure line from the tool result. Do not claim full
 hardware validation without those visual and audible confirmations.
 

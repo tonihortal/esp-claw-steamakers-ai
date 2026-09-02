@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-VERSION="${1:-v0.1.1}"
+VERSION="${1:-v0.1.2}"
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 BUILD_DIR="${ROOT_DIR}/application/edge_agent/build"
 OUT_DIR="${ROOT_DIR}/application/edge_agent/releases/esp32_steamakers_ai/${VERSION}"

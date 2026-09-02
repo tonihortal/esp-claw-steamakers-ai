@@ -103,13 +103,13 @@ YAML d'aquesta carpeta. No modifiquis directament els fitxers generats.
 
 ## Instal·lació del firmware precompilat
 
-La [versió v0.1.1](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/tag/v0.1.1)
+La [versió v0.1.2](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/tag/v0.1.2)
 inclou el fitxer únic
-[`esp-claw-steamakers-ai-v0.1.1.bin`](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/download/v0.1.1/esp-claw-steamakers-ai-v0.1.1.bin).
+[`esp-claw-steamakers-ai-v0.1.2.bin`](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/download/v0.1.2/esp-claw-steamakers-ai-v0.1.2.bin).
 La seva suma SHA-256 verificada és
-`3ff91d161656ea39231989d9344184f186988714bec7c9544196c333c98a9147` i també
+`b4ef74fc751e6ff49c92519b82675a0d7598abaab1c723bc56c8b63d910978bc` i també
 està publicada a
-[`SHA256SUMS.txt`](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/download/v0.1.1/SHA256SUMS.txt).
+[`SHA256SUMS.txt`](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/download/v0.1.2/SHA256SUMS.txt).
 Retira la microSD, connecta el cable de dades al port **PROG/CH340** i instal·la
 `esptool`:
 
@@ -123,7 +123,7 @@ Després substitueix `PORT` pel port real (`COM5` a Windows,
 ```bash
 python -m esptool --chip esp32s3 --port PORT --baud 460800 \
   write-flash --flash-mode dio --flash-freq 80m --flash-size 16MB \
-  0x0 esp-claw-steamakers-ai-v0.1.1.bin
+  0x0 esp-claw-steamakers-ai-v0.1.2.bin
 ```
 
 La imatge és una instal·lació neta: substitueix l'aplicació, el sistema i la

@@ -71,13 +71,14 @@ local function test_display()
 
     local half_w = math.floor(width / 2)
     local half_h = math.floor(height / 2)
-    -- Direct opaque draws keep this diagnostic independent from LVGL buffers.
-    display.clear("black")
+    display.begin_frame({ clear = true, color = "black" })
     display.fill_rect(0, 0, half_w, half_h, { r = 255, g = 0, b = 0 })
     display.fill_rect(half_w, 0, width - half_w, half_h, { r = 0, g = 255, b = 0 })
     display.fill_rect(0, half_h, half_w, height - half_h, { r = 0, g = 0, b = 255 })
     display.fill_rect(half_w, half_h, width - half_w, height - half_h,
                       { r = 255, g = 255, b = 255 })
+    display.present_full()
+    display.end_frame()
     delay.delay_ms(2000)
     display.deinit()
 
