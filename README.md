@@ -6,6 +6,7 @@
 >
 > - [Descripció, cablejat, limitacions i compilació](application/edge_agent/boards/steamakers/esp32_steamakers_ai/README.md)
 > - [Firmware precompilat i instruccions d'instal·lació](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/latest)
+> - [Skill de Codex per continuar el projecte](codex-skills/esp-claw-steamakers-ai/SKILL.md)
 > - [Projecte ESP-Claw original d'Espressif](https://github.com/espressif/esp-claw)
 >
 > La targeta microSD ha d'estar retirada i la gravació s'ha de fer pel port
