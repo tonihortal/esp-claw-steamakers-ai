@@ -1,0 +1,4 @@
+interface:
+  display_name: "ESP-Claw STEAMakers AI"
+  short_description: "Desenvolupa i mantén el firmware STEAMakers AI"
+  default_prompt: "Usa $esp-claw-steamakers-ai per continuar el firmware ESP-Claw de la placa STEAMakers AI."
