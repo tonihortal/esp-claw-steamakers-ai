@@ -103,13 +103,13 @@ YAML d'aquesta carpeta. No modifiquis directament els fitxers generats.
 
 ## Instal·lació del firmware precompilat
 
-La [versió v0.1.2](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/tag/v0.1.2)
+La [versió v0.1.3](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/tag/v0.1.3)
 inclou el fitxer únic
-[`esp-claw-steamakers-ai-v0.1.2.bin`](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/download/v0.1.2/esp-claw-steamakers-ai-v0.1.2.bin).
+[`esp-claw-steamakers-ai-v0.1.3.bin`](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/download/v0.1.3/esp-claw-steamakers-ai-v0.1.3.bin).
 La seva suma SHA-256 verificada és
-`b4ef74fc751e6ff49c92519b82675a0d7598abaab1c723bc56c8b63d910978bc` i també
+`301a6a586a3cb59c37c0c1cd095f5996db635e8929af86487180bc1a2801cfcf` i també
 està publicada a
-[`SHA256SUMS.txt`](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/download/v0.1.2/SHA256SUMS.txt).
+[`SHA256SUMS.txt`](https://github.com/tonihortal/esp-claw-steamakers-ai/releases/download/v0.1.3/SHA256SUMS.txt).
 Retira la microSD, connecta el cable de dades al port **PROG/CH340** i instal·la
 `esptool`:
 
@@ -123,7 +123,7 @@ Després substitueix `PORT` pel port real (`COM5` a Windows,
 ```bash
 python -m esptool --chip esp32s3 --port PORT --baud 460800 \
   write-flash --flash-mode dio --flash-freq 80m --flash-size 16MB \
-  0x0 esp-claw-steamakers-ai-v0.1.2.bin
+  0x0 esp-claw-steamakers-ai-v0.1.3.bin
 ```
 
 La imatge és una instal·lació neta: substitueix l'aplicació, el sistema i la
@@ -151,6 +151,13 @@ durant cada arrencada.
 
 La pantalla connectada s'ha validat físicament amb
 `STEAMAKERS_LCD_OFFSET_Y` igual a `0` a `setup_device.c`.
+
+L'skill `steamakers_display` permet substituir temporalment la pantalla d'estat
+per una composició de fins a 64 operacions: franges o graelles regulars,
+rectangles, línies, píxels, cercles, el·lipses, triangles, arcs i text ASCII.
+Les operacions es dibuixen en ordre sobre un fons configurable i admeten colors
+amb nom, codis hexadecimals o components RGB(A). El controlador antic de color
+sòlid i quatre quadrants es manté per compatibilitat.
 
 ## Referències de maquinari
 

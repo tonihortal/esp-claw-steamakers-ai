@@ -75,13 +75,23 @@ static const char *APP_STARTUP_EVENT_KEY = "boot_completed";
     "must be exactly {action:'write', pin:<GPIO>, level:0|1}; use level, never value. Supported " \
     "actions are list, write, read, analog, pwm, " \
     "tone, servo, and release. The script itself validates the board and blocks reserved pins. " \
-    "For requests to fill the TFT with a color, directly call lua_run_script_async with path " \
-    "/system/skills/steamakers_display/scripts/display_control.lua, args {color:<requested color>}, " \
-    "timeout_ms=0, name='steamakers_display', exclusive='steamakers_display', and replace=true; " \
-    "for requests to divide the TFT into four colored quadrants, use the same call with args " \
-    "{colors:[<top-left>,<top-right>,<bottom-left>,<bottom-right>]}; choose four distinct supported " \
-    "colors when the user requests random colors. " \
-    "do not activate another skill first. To restore the status screen, call lua_stop_async_job " \
+    "For every TFT drawing request, directly call lua_run_script_async with path " \
+    "/system/skills/steamakers_display/scripts/display_control.lua, args " \
+    "{background:<color>,commands:[...]}, timeout_ms=0, name='steamakers_display', " \
+    "exclusive='steamakers_display', and replace=true; do not activate another skill first. " \
+    "Every command object has an op field. The 240x240 operations are: " \
+    "stripes{orientation,count,colors}, grid{columns,rows,colors}, rect or " \
+    "round_rect{x,y,width,height,radius,color,filled}, line{x0,y0,x1,y1,color}, " \
+    "pixel{x,y,color}, circle{cx,cy,radius,color,filled}, " \
+    "ellipse{cx,cy,radius_x,radius_y,color,filled}, " \
+    "triangle{x1,y1,x2,y2,x3,y3,color,filled}, " \
+    "arc{cx,cy,radius,start_deg,end_deg,inner_radius,color}, and " \
+    "text{x,y,text,color,font_size,width,height,align,valign,bg}. For N equal bands, use one " \
+    "stripes command with count=N; its colors repeat cyclically starting with the first color. " \
+    "Example: {background:'black',commands:[{op:'stripes',orientation:'vertical',count:9," \
+    "colors:['yellow','red']}]}. Always include colors and prefer quoted color names or hex strings. " \
+    "Legacy args {color:<color>} and four quadrant {colors:[TL,TR,BL,BR]} remain supported. " \
+    "To restore the status screen, call lua_stop_async_job " \
     "with name='steamakers_display'. " \
     "When the user explicitly asks to execute the complete STEAMakers hardware test, that request " \
     "authorizes its display, three-tone speaker, and microphone diagnostics. Activate " \

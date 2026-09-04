@@ -51,12 +51,18 @@ double quotes, for example:
 ```text
 lua --run --path /system/skills/steamakers_gpio/scripts/gpio_control.lua --args-json "{\"action\":\"write\",\"pin\":12,\"level\":1}" --timeout-ms 10000
 lua --run-async --path /system/skills/steamakers_display/scripts/display_control.lua --args-json "{\"colors\":[\"red\",\"green\",\"blue\",\"yellow\"]}"
+lua --run-async --path /system/skills/steamakers_display/scripts/display_control.lua --args-json "{\"background\":\"black\",\"commands\":[{\"op\":\"stripes\",\"orientation\":\"vertical\",\"count\":9,\"colors\":[\"yellow\",\"red\"]}]}"
 ```
 
-The display controller supports a solid `color` or four `colors` ordered
-top-left, top-right, bottom-left, bottom-right. It must render through the shared
-display service and framebuffer; direct exclusive mode fails while the normal
-system UI owns the panel.
+The display controller supports general scenes through `background` and up to
+64 ordered `commands`: equal stripes, grids, rectangles, rounded rectangles,
+lines, pixels, circles, ellipses, triangles, arcs and printable ASCII text.
+It retains the solid `color` and four-quadrant `colors` aliases. It must render
+through the shared display service and framebuffer; direct exclusive mode fails
+while the normal system UI owns the panel.
+Colors may be names, hex strings, RGB(A) tables, or packed RGB integers. The
+integer form is deliberately accepted because some LLM providers translate
+named colors to values such as `16776960` (`#FFFF00`).
 
 ## Complete hardware test
 
